@@ -1,19 +1,22 @@
 # Python-TTS-converter
 A python script for converting text to speech with a friendly UI
 
-This python script uses 'pyttsx3' module for text-2-speech conversion, and the PyQt5 package for implementing a friendly UI for this program.
+This python script uses 'pyttsx3' library for offline text-2-speech conversion, and the PyQt5 package for implementing a friendly UI for this script.
 
-Let's see the result first :
-![python TTS application](https://github.com/keerthan657/My-Images/blob/master/python%20tts%20application.PNG)
-
-The delay field - for delaying the speech initially (in sec)(Note: Not reducing the speed of speech)
-The text field - what you want to be converted to speech
-The speak button - click it to speak-out
+The delay field - For delaying the speech initially (in sec)(Note: Not reducing the speed of speech)
+The text field - What you want the engine to speak-out
+The speak button - Click it to speak-out
+The volume slider - Control volume of speech
+The rate slider - Control voice rate from this slider
+The male and female voice checkboxes : Select the voice of your speech output here (Automatically defaults to male voice if none or both are selected)
 
 This basically covers all of this application
 
 Going on to How it works :
 The text is input to the appliation via PyQt5 and it's widgets and then, pyttsx3's speech engine converts the given text to speech
+I also added error windows for if the delay time and text field were empty
 
-If the delay time is not from 0 to 10 sec, the program shows up an error dialog as shown :
-![Warning Message](https://github.com/keerthan657/My-Images/blob/master/python%20tts%20application%20-%20warning.PNG)
+Edit 1:
+Added features for volume, rate of voice and tone of voice
+Added default values for some parameters
+#This is my first repo, feel free to make changes or correct my code(if any)
