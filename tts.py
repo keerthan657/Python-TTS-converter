@@ -1,12 +1,15 @@
+#Created by ~ Keerthan Kumar
+#Github Link : https://github.com/keerthan657/Python-TTS-converter
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 import pyttsx3
 import time
 
-
-#This is the pyttsx3 speech engine
+#Initializing the pyttsx3 speech engine
 engine = pyttsx3.init()
 
+#Delay time of 0 to 10 seconds is added as an additional functionality
 #To check if the delay time is valid or not (i.e, should be a positive number from 0 to 10 sec)
 def is_valid(n):
 	try:
@@ -17,6 +20,8 @@ def is_valid(n):
 	except ValueError:
 		return False
 
+
+#The code for the GUI
 class Ui_PythonSpeaker(object):
 	def setupUi(self, PythonSpeaker):
 		PythonSpeaker.setObjectName("PythonSpeaker")
@@ -82,15 +87,17 @@ class Ui_PythonSpeaker(object):
 		self.maleVoiceCheckbox.setText(_translate("PythonSpeaker", "Male Voice"))
 		self.femaleVoiceCheckbox.setText(_translate("PythonSpeaker", "Female Voice"))
 
+		#Whenever SPEAK button is pressed, the below line calls the "on_click" function
 		self.pushButton.clicked.connect(self.on_click)
 		self.delayEdit.setText('0')             #Default delay time
 		self.rateSlider.setMinimum(1)
 		self.rateSlider.setMaximum(250)
 		self.rateSlider.setValue(175)           #This is the default state of rate slider
 		self.volumeSlider.setValue(100)         #This is the default state of volume slider
-		self.maleVoiceCheckbox.setChecked(True)
+		self.maleVoiceCheckbox.setChecked(True) #This is to set the default for MALE voice
+												#For FEMALE default voice, change maleVoiceCheckbox to femaleVoiceCheckbox
 
-	#This error is shown if the text-field is empty
+	#This error dialog box is shown if the text-field(input) is empty
 	def errorEmptyText(self, message):
 		errorDialog = QMessageBox()
 		errorDialog.setIcon(QMessageBox.Critical)
@@ -98,12 +105,14 @@ class Ui_PythonSpeaker(object):
 		errorDialog.setWindowTitle("Reading error")
 		errorDialog.exec_()
 
+	#This is the functionality for the SPEAK button. When SPEAK button is pressed, this function is called
 	def on_click(self):
-		myText = self.textEdit1.toPlainText()
+		myText = self.textEdit1.toPlainText()				#This is the text to be spoken
 		delayTime = self.delayEdit.toPlainText()
 		rateValue = self.rateSlider.value()
-		volumeValue = self.volumeSlider.value() / 100.0
+		volumeValue = self.volumeSlider.value() / 100.0		#Volume should be between [0,1], so dividing by 100.0
 
+		#Checking if delay time is valid & input text is entered, else error dialog box pops up
 		if(is_valid(delayTime) == False):
 			self.errorEmptyText("Error reading delay time. Make sure delay time is an integer between 0 and 10 sec")
 			return
@@ -119,7 +128,7 @@ class Ui_PythonSpeaker(object):
 			else:
 				self.maleVoiceCheckbox.setChecked(True)
 				self.femaleVoiceCheckbox.setChecked(False)
-				VoiceId = 0                             #Defaluts to male voice if both are selected or if none are selected
+				VoiceId = 0                             		#Defaluts to male voice if both are selected or if none are selected
 
 			voices = engine.getProperty('voices')
 			engine.setProperty('voice', voices[VoiceId].id)     #VoiceId = 0 for male voice and 1 for female voice
@@ -135,4 +144,3 @@ if __name__ == "__main__":
 	ui.setupUi(PythonSpeaker)
 	PythonSpeaker.show()
 	sys.exit(app.exec_())
-
